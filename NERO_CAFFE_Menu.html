@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NERO CAFFE | Menu</title>
+
+    <!-- Google Fonts: Tajawal & Alexandria (Geometric Arabic) + Montserrat (Clean English) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@600;700;800&family=Montserrat:wght@500;600;700;800&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        :root {
+            --bg-forest: #1A3324;
+            --bg-forest-card: #244330;
+            --paper-base: #F4F2ED;
+            --paper-tint: #ECE9E2;
+            --ink-primary: #1E1E1E;
+            --ink-secondary: #4A4A46;
+            --ink-muted: #78756E;
+            --cream-logo: #ECE7D1;
+            --accent-amber: #8C5628;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-forest);
+            color: var(--cream-logo);
+            font-family: 'Tajawal', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Off-white textured paper menu card with distinctive rounded top-left corner (matching YouCafe reference) */
+        .menu-paper-card {
+            background-color: var(--paper-base);
+            background-image:
+                radial-gradient(rgba(30, 30, 30, 0.05) 1px, transparent 0),
+                radial-gradient(rgba(85, 80, 72, 0.04) 1px, transparent 0),
+                linear-gradient(180deg, #F6F4EF 0%, #ECE9E2 100%);
+            background-size: 20px 20px, 29px 29px, 100% 100%;
+            background-position: 0 0, 10px 14px, 0 0;
+            border-radius: 138px 6px 14px 14px;
+            box-shadow: 0 24px 54px rgba(0, 0, 0, 0.48), 0 4px 16px rgba(0, 0, 0, 0.25);
+            position: relative;
+        }
+
+        @media (max-width: 420px) {
+            .menu-paper-card {
+                border-radius: 118px 6px 14px 14px;
+            }
+        }
+
+        /* Geometric Arabic Category Headings */
+        .font-cat-ar {
+            font-family: 'Alexandria', 'Tajawal', sans-serif;
+            font-weight: 700;
+            color: var(--ink-primary);
+        }
+
+        /* Clean Geometric Arabic Item Text */
+        .font-item-ar {
+            font-family: 'Tajawal', sans-serif;
+            font-weight: 500;
+            color: var(--ink-primary);
+        }
+
+        /* English Typography */
+        .font-en {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Menu Row Layout: Item Name on Right, Dotted Leader, Price on Left */
+        .menu-row {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 8px;
+            padding: 4.5px 0;
+        }
+
+        .item-label-wrap {
+            display: inline-flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 6px;
+            flex-shrink: 0;
+            max-width: 67%;
+        }
+
+        .dotted-line {
+            flex-grow: 1;
+            border-bottom: 1.5px dotted #9A968E;
+            margin: 0 4px;
+            min-width: 14px;
+            transform: translateY(-3px);
+        }
+
+        .price-tag {
+            display: inline-flex;
+            align-items: baseline;
+            flex-shrink: 0;
+            direction: ltr;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 0.88rem;
+            color: var(--ink-primary);
+            letter-spacing: 0.01em;
+        }
+
+        .price-unit {
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--ink-secondary);
+            margin-left: 3px;
+        }
+
+        /* Dual Hot / Cold Price Columns */
+        .dual-prices {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 12px;
+            flex-shrink: 0;
+            direction: ltr;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 0.87rem;
+            color: var(--ink-primary);
+        }
+
+        .dual-col {
+            width: 44px;
+            text-align: center;
+        }
+
+        /* Signature Choice Pill Badge ("★ اختيارنا") */
+        .badge-choice {
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            background-color: #8C5628;
+            color: #FAF8F3;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 0.68rem;
+            font-weight: 700;
+            padding: 1px 7px;
+            border-radius: 999px;
+            line-height: 1.35;
+            white-space: nowrap;
+        }
+
+        /* Left Vertical Line Rule inside Menu Card (matching YouCafe layout) */
+        .card-left-rail {
+            position: absolute;
+            left: 16px;
+            top: 156px;
+            bottom: 42px;
+            width: 1px;
+            background: linear-gradient(180deg, #6E6B64 0%, rgba(110, 107, 100, 0.35) 85%, transparent 100%);
+            pointer-events: none;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-[#8C5628] selection:text-white">
+
+    <!-- Main Centered Mobile-First Container -->
+    <div class="w-full max-w-[470px] mx-auto px-3 sm:px-4 pt-6 pb-10 flex flex-col items-center">
+
+        <!-- TOP HEADER: Custom NERO CAFFE Emblem & Tagline on Dark Forest Green (#1A3324) -->
+        <header class="w-full flex flex-col items-center text-center mb-6 select-none">
+            <!-- Custom NERO CAFFE Logo SVG matching uploaded emblem -->
+            <div class="mb-2 flex justify-center">
+                <svg width="246" height="106" viewBox="0 0 320 136" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="NERO CAFFE Logo">
+                    <defs>
+                        <filter id="emblemDrop" x="-8%" y="-8%" width="116%" height="122%">
+                            <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#0B1810" flood-opacity="0.45"/>
+                        </filter>
+                        <!-- Two-tone overlapping rounded badge container -->
+                        <path id="badgeMain" d="M 26,18 H 212 A 12,12 0 0 1 224,30 V 88 A 8,8 0 0 0 232,96 H 262 A 10,10 0 0 1 272,106 V 116 A 10,10 0 0 1 262,126 H 198 A 10,10 0 0 1 188,116 V 111 A 8,8 0 0 0 180,103 H 26 A 12,12 0 0 1 14,91 V 30 A 12,12 0 0 1 26,18 Z"/>
+                    </defs>
+
+                    <!-- Lighter forest green badge container -->
+                    <use href="#badgeMain" fill="#244330" filter="url(#emblemDrop)"/>
+
+                    <!-- Tall Classic Serif Letters "NER" in Warm Cream (#ECE7D1) -->
+                    <g fill="#ECE7D1">
+                        <!-- N -->
+                        <path d="M 34,34 H 46.5 L 70.5,76.5 V 39.5 C 70.5,36.2 68.5,35 65.5,34.7 V 34 H 78 V 34.7 C 75,35 73.2,36.2 73.2,39.5 V 90.5 H 70.2 L 43.2,43 V 84.5 C 43.2,87.8 45.2,89 48.2,89.3 V 90 H 34 V 89.3 C 37,89 39.2,87.8 39.2,84.5 V 39.5 C 39.2,36.2 37,35 34,34.7 V 34 Z"/>
+                        <!-- E -->
+                        <path d="M 88,34 H 124.5 L 125.5,45.5 H 124.5 C 123.2,38.8 119.5,36.5 112.5,36.5 H 101.5 V 59.5 H 111.5 C 116.5,59.5 118.8,57.5 119.6,52.5 H 120.5 V 69 H 119.6 C 118.8,64 116.5,62 111.5,62 H 101.5 V 87.2 H 113.5 C 121.2,87.2 124.8,84.5 126.8,76.5 H 127.8 L 126,90 H 88 V 89.3 C 91.2,89 93,87.8 93,84.5 V 39.5 C 93,36.2 91.2,35 88,34.7 V 34 Z"/>
+                        <!-- R -->
+                        <path d="M 136,34 H 158.5 C 171.5,34 178.5,39.8 178.5,49.2 C 178.5,57.2 173.2,62.4 164.8,64.2 L 178.2,84.2 C 180.6,87.8 183.4,89.4 186.8,89.6 V 90.4 C 185.2,90.8 183.2,91 181.2,91 C 175.4,91 171.8,88.6 168.4,83.4 L 156.2,64.8 H 149.5 V 84.5 C 149.5,87.8 151.4,89 154.6,89.3 V 90 H 136 V 89.3 C 139.2,89 141,87.8 141,84.5 V 39.5 C 141,36.2 139.2,35 136,34.7 V 34 Z M 149.5,36.5 V 62.3 H 156.8 C 165.6,62.3 169.8,57.8 169.8,49.4 C 169.8,41 165.4,36.5 156.8,36.5 H 149.5 Z"/>
+                    </g>
+
+                    <!-- Tilted Top-Down Coffee Cup Forming the "O" with Detailed Latte Art Leaf -->
+                    <g transform="translate(224, 62)">
+                        <!-- Cup Handle -->
+                        <path d="M 23,23 L 34,34 C 37.5,37.5 32.5,42.5 29,39 L 18,28" fill="#1A3324" stroke="#ECE7D1" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+                        <!-- Outer Cup Rim -->
+                        <circle cx="0" cy="0" r="32" fill="#1A3324" stroke="#ECE7D1" stroke-width="3.6"/>
+                        <!-- Inner Latte Foam Surface with Two-Tone Split -->
+                        <circle cx="0" cy="0" r="24.5" fill="#ECE7D1"/>
+                        <path d="M 0,-24.5 A 24.5,24.5 0 0,1 0,24.5 Z" fill="#D5CEB8"/>
+
+                        <!-- Detailed Fern / Rosetta Latte Art Leaves in Dark Forest Green -->
+                        <g fill="#1A3324" stroke="#1A3324" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M -14,14 Q -2,2 13,-13" fill="none" stroke-width="1.9"/>
+                            <!-- Upper-left leaves -->
+                            <path d="M -10,9 C -15,5 -17,-1 -15,-6 C -12,-2 -10,3 -10,9 Z" stroke="none"/>
+                            <path d="M -6,5 C -11,0 -13,-6 -10,-11 C -7,-7 -5,-1 -6,5 Z" stroke="none"/>
+                            <path d="M -1,0 C -6,-4 -7,-10 -4,-14 C -1,-10 0,-5 -1,0 Z" stroke="none"/>
+                            <path d="M 4,-5 C 0,-8 -1,-13 2,-16 C 4,-13 5,-9 4,-5 Z" stroke="none"/>
+                            <!-- Lower-right leaves -->
+                            <path d="M -9,10 C -4,14 2,15 7,13 C 3,10 -3,9 -9,10 Z" stroke="none"/>
+                            <path d="M -5,6 C 0,10 6,11 11,9 C 7,6 1,5 -5,6 Z" stroke="none"/>
+                            <path d="M 0,1 C 5,5 10,6 14,4 C 11,1 5,0 0,1 Z" stroke="none"/>
+                            <path d="M 5,-4 C 9,-1 13,0 16,-2 C 13,-4 9,-5 5,-4 Z" stroke="none"/>
+                            <!-- Rosetta Heart Tip -->
+                            <path d="M 11,-11 C 11,-15 15,-16 16,-13 C 19,-12 18,-8 14,-8 Z" stroke="none"/>
+                        </g>
+                    </g>
+
+                    <!-- Bold Geometric Sans-Serif "CAFFE" underneath the cup -->
+                    <text x="230" y="116.5" text-anchor="middle" fill="#ECE7D1" font-family="'Montserrat', sans-serif" font-weight="800" font-size="15.5" letter-spacing="2.8">CAFFE</text>
+                </svg>
+            </div>
+
+            <!-- Tagline below Logo -->
+            <p class="font-en text-[#ECE7D1] text-[13px] sm:text-sm font-medium tracking-wider opacity-95">
+                Home of Your Favourite Coffee
+            </p>
+        </header>
+
+        <!-- OFF-WHITE TEXTURED PAPER MENU CARD (Exact YouCafe Reference Structure) -->
+        <main class="menu-paper-card w-full text-[#1E1E1E] pt-6 pb-8 pr-5 sm:pr-7 pl-7 sm:pl-9">
+
+            <!-- Vertical Left Line Rule -->
+            <div class="card-left-rail" aria-hidden="true"></div>
+
+            <!-- Top Card Header: Curved/Vertical "Specialty Coffee House" on Left & Stacked "ME / NU" -->
+            <div class="relative flex items-start justify-between mb-6 pt-1" dir="ltr">
+                <!-- Left Arc / Side Label + Horizontal Line matching YouCafe card corner -->
+                <div class="flex items-start gap-2">
+                    <!-- Curved SVG text hugging the top-left rounded corner -->
+                    <svg width="118" height="118" viewBox="0 0 120 120" class="-mt-4 -ml-5 overflow-visible select-none" aria-hidden="true">
+                        <defs>
+                            <path id="cornerCurve" d="M 12,112 A 96,96 0 0,1 108,16"/>
+                        </defs>
+                        <text fill="#1E1E1E" font-family="'Montserrat', sans-serif" font-size="10.2" font-weight="700" letter-spacing="0.6">
+                            <textPath href="#cornerCurve" startOffset="4%">Specialty Coffee House</textPath>
+                        </text>
+                    </svg>
+                    <div class="w-10 h-[1px] bg-[#6E6B64] mt-1 hidden sm:block"></div>
+                </div>
+
+                <!-- Stacked "ME / NU" Typography on Top-Left/Center-Left of Card -->
+                <div class="font-en font-extrabold text-[28px] sm:text-[31px] leading-[0.94] tracking-tight text-[#1E1E1E] select-none pr-1">
+                    <div>ME</div>
+                    <div>NU</div>
+                </div>
+            </div>
+
+            <!-- ORGANIZED 11-CATEGORY MENU LIST -->
+            <div class="space-y-6">
+
+                <!-- ==================================================== -->
+                <!-- 1. المشروبات الساخنة (Hot Drinks)                    -->
+                <!-- ==================================================== -->
+                <section aria-labelledby="cat-hot-drinks">
+                    <div class="flex items-baseline justify-between mb-1.5">
+                        <h2 id="cat-hot-drinks" class="font-cat-ar text-[18px] sm:text-[19px]">المشروبات الساخنة</h2>
+                        <span class="font-en text-[11px] font-semibold uppercase tracking-wider text-[#6E6B64]" dir="ltr">Hot Drinks</span>
+                    </div>
+                    <div class="space-y-0.5 text-[15px] font-item-ar">
+                        <div class="menu-row">
+                            <div class="item-label-wrap"><span>إسبرسو سنجل</span></div>
+                            <span class="dotted-line"></span>
+                            <div class="price-tag">2,000<span class="price-unit">IQD</span></div>
+                        </div>
+                        <div class="menu-row">
+                            <div class="item-label-wrap"><span>كابتشينو</span></div>
+                            <span class="dotted-line"></span>
+                            <div class="price-tag">3,500<span class="price-unit">IQD</span></div>
+                        </div>
+                        <div class="menu-row">
+                            <div class="item-label-wrap"><span>فلات وايت</span></div>
+                            <span class="dotted-line"></span>
+                            <div class="price-tag">3,500<span class="price-unit">IQD</span></div>
+                        </div>
+                        <div class="menu-row">
+                            <div class="item-label-wrap"><span>ماكياتو</span></div>
+                            <span class="dotted-line"></span>
+                            <div class="price-tag">3,000<span class="price-unit">IQD</span></div>
+                        </div>
+                        <div class="menu-row">
+                            <div class="item-label-wrap"><span>كورتادو</span></div>
+                            <span class="dotted-line"></span>
+                            <div class="price-tag">3,000<span class="price-unit">IQD</span></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ==================================================== -->
+                <!-- 2. اللاتيه الكلاسيكية (Classic Latte - حار / بارد)   -->
+                <!-- ==================================================== -->
+                <section aria-labelledby="cat-classic-latte">
+                    <div class="flex items-baseline justify-between mb-1">
+                        <h2 id="cat-classic-latte" class="font-cat-ar text-[18px] sm:text-[19px]">اللاتيه الكلاسيكية</h2>
+                        <span class="font-en text-[11px] font-semibold uppercase tracking-wider text-[#6E6B64]" dir="ltr">Classic Latte</span>
+                    </div>
+                    <!-- Hot / Cold Column Labels aligned above left price columns -->
+                    <div class="flex justify-end pb-0.5">
+                        <div class="inline-flex items-center gap-[12px] text-[11.5px] font-bold text-[#6E6B64]" dir="ltr">
+                            <span class="w-[44px] text-center">بارد</span>
+                            <span class="w-[44px] text-center">حار</span>
+                        </div>
+                    </div>
+                    <div class="space-y-0.5 text-[15px] font-item-ar">
+                        <div class="menu-row">
+                            <div class="item-label-wrap"><span>لاتيه</span></div>
+                            <span class="dotted-line"></span>
+                            <div class="dual-prices">
+                                <span class="dual-col">3,500</span>
+                                <span class="dual-col">3,000</span>
+                            </div>
+                        </div>
+                        <div class="menu-row">
+                            <div class="item-label-wrap"><span>سبانش لاتيه</span></div>
+                            <span class="dotted-line"></span>
+                            <div class="dual-prices">
+                                <span class="dual-col">3,500</span>
+                                <span class="dual-col">3,000</span>
+                            </div>
+                        </div>
+                        <div class="menu-row">
+                            <div class="item-label-wrap"><span>لاتيه بندق</span></div>
+                            <span class="dotted-line"></span>
+                            <div class="dual-prices">
+                                <span class="dual-col">3,500</span>
+                                <span class="dual-col">3,000</span>
+                            </div>
+                        </div>
+                        <div class="menu-row">
+                            <div class="item-label-wrap"><span>لاتيه كرميل</span></div>
+                            <span class="dotted-line"></span>
+                            <div class="dual-prices">
+                                <span class="dual-col">3,500</span>
+                                <span class="dual-col">3,000</span>
+                            </div>
+                        </div>
+                        <div class="menu-row">
+                            <div class="item-label-wrap"><span>لاتيه فانيلا</span></div>
+                            <span class="dotted-line"></span>
+                            <div class="dual-prices">
+                                <span class="dual-col">3,500</span>
+                                <span class="dual-col">3,000</span>
+                            </div>
+                        </div>
+                        <div class="menu-row">
+                            <div class="item-label-wrap"><span>لاتيه بستاشيو</span></div>
+                            <span class="dotted-line"></span>
+                            <div class="dual-prices">
+                                <span class="dual-col">3,500</span>
+                                <span class="dual-col">3,000</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ==================================================== -->
+                <!-- 3. الموكا واللاتيه الخاصة (Special Latte - حار / بارد) -->
+                <!-- ==================================================== -->
+                <section aria-labelledby="cat-special-latte">
+                    <div class="flex items-baseline justify-between mb-1">
+                        <h2 id="cat-special-latte" class="font-cat-ar text-[18px] sm:text-[19px]">الموكا واللاتيه الخاصة</h2>
+                        <span class="font-en text-[11px] font-semibold uppercase tracking-wider text-[#6E6B64]" dir="ltr">Special Latte</span>
+                    </div>
+                    <!-- Hot / Cold Column Labels aligned above left price columns -->
+                    <div class="flex justify-end pb-0.5">
+                        <div class="inline-flex items-center gap-[12px] text-[11.5px] font-bold text-[#6E6B64]" dir="ltr">
+                            <span class="w-[44px] text-center">بارد</span>
+                            <span class="w-[44px] text-center">حار</span>
+                        </div>
+                    </div>
+                    <div class="space-y-0.5 text-[15px] font-item-ar">
+                        <div class="menu-row">
+                            <div class="item-label-wrap"><span>لاتيه نوتيلا</span></div>
+                            <span class="dotted-line"></span>
+                            <div class="dual-prices">
+                                <span class="dual-col">3,500</span>
+                                <span class="dual-col">3,000</span>
+                            </div>
+                        </div>
+                        <div class="menu-row">
+                            <div class="item-label-wrap"><span>لاتيه كندر</span></div>
+                            <span class="dotted-line"></span>
+                            <div class="dual-prices">
+                                <span class="dual-col">3,500</span>
+                                <span class="dual-col">3,000</span>
+                            </div>
+                        </div>
+                        <div class="menu-row">
+                            <div class="item-label-wrap"><span>هملايا لاتيه</span></div>
+                            <span class="dotted-line"></span>
+                            <div class="dual-prices">
+                                <span class="dual-col">3,500</span>
+                                <span class="dual-col">3,000</span>
+                            </div>
+                        </div>
+                        <div class="menu-row">
+                            <div class="item-label-wrap"><span>دارك موكا</span></div>
+                            <span class="dotted-line"></span>
+                            <div class="dual-prices">
+                                <span class="dual-col">3,500</span>
+                                <span class="dual-col">3,000</span>
+                            </div>
+                        </div>
+                        <div class="menu-row">
+                            <div class="item-label-wrap"><span>وايت موكا</span></div>
+                            <span class="dotted-line"></span>
+                            <div class="dual-prices">
+                                <span class="dual-col">3,500</span>
+                                <span class="dual-col">3,000</span>
+                            </div>
+                        </div>
+                        <div class="menu-row">
+                            <div class="item-label-wrap"><span>روز لاتيه</span></div>
+                            <span class="dotted-line"></span>
+                            <div class="dual-prices">
+                                <span class="dual-col">3,500</span>
+                                <span class="dual-col">3,000</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ==================================================== -->
+                <!-- 4. القهوة المختصة (Specialty Coffee)                 -->
+                <!-- ==================================================== -->
+                <section aria-labelledby="cat-specialty">
+                    <div class="flex items-baseline justify-between mb-1.5">
+                        <h2 id="cat-specialty" class="font-cat-ar text-[18px] sm:text-[19px]">القهوة المختصة</h2>
+                        <span class="font-en text-[11px] font-semibold uppercase tracking-wider text-[#6E6B64]" dir="ltr">Specialty Coffee</span>
+                    </div>
+                    <div class="space-y-0.5 text-[15px] font-item-ar">
+                        <div class="menu-row">
+                            <div class="item-label-wrap">
+                                <span class="font-bold"><span class="font-en font-semibold text-sm">Cold Brew</span> برو</span>
+                                <span class="badge-choice">★ اختيارنا</span>
+                            </div>
+                            <span class="dotted-line"></span>
+                            <div class="price-tag">5,000<span class="price-unit">IQD</span></div>
+                        </div>
+                        <div class="menu-row">
+                            <div class="item-label-wrap">
+                                <span><span class="font-en font-semibold text-sm">Chemex</span> كمكس</span>
+                            </div>
+                            <span class="dotted-line"></span>
+                            <div class="price-tag">4,000<span class="price-unit">IQD</span></div>
+                        </div>
+                        <div class="menu-row">
+                            <div class="item-label-wrap">
+                                <span class="font-en font-semibold text-sm">V 60</span>
+                            </div>
+                            <span class="dotted-line"></span>
+                            <div class="price-tag">4,000<span class="price-unit">IQD</span></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ==================================================== -->
+                <!-- 5. قسم الشاي (Tea)                                   -->
+                <!-- ==================================================== -->
+                <section aria-labelledby="cat-tea">
+                    <div class="flex items-baseline justify-between mb-1.5">
+                        <h2 id="cat-tea" class="font-cat-ar text-[18px] sm:text-[19px]">قسم الشاي</h2>
+                        <span class="font-en text-[11px] font-semibold uppercase tracking-wider text-[#6E6B64]" dir="ltr">Tea</span>
+                    </div>
+                    <div class="space-y-0.5 text-[15px] font-item-ar">
+                        <div class="menu-row">
+                            <div class="item-label-wrap"><span>شاي كرك هيل</span></div>
+                            <span class="dotted-line"></span>
+                            <div class="price-tag">2,000<span class="price-unit">IQD</span></div>
+                        </div>
+                        <div class="menu-row">
+                            <div class="item-label-wrap"><span>شاي كرك زعفران</span></div>
+                            <span class="dotted-line"></span>
+                            <div class="price-tag">2,000<span class="price-unit">IQD</span></div>
+                        </div>
+                        <div class="menu-row">
+                            <div class="item-label-wrap"><span>شاي عراقي</span></div>
+                            <span class="dotted-line"></span>
+                            <div class="price-tag">500<span class="price-unit">IQD</span></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ==================================================== -->
+                <!-- 6. ايستي (Iced Tea)                                  -->
+                <!-- ==================================================== -->
+                <section aria-labelledby="cat-iced-tea">
+                    <div class="flex items-baseline justify-between mb-1.5">
+                        <h2 id="cat-iced-tea" class="font-cat-ar text-[18px] sm:text-[19px]">ايستي</h2>
+                        <span class="font-en text-[11px] font-semibold uppercase tracking-wider text-[#6E6B64]" dir="ltr">Iced Tea</span>
+                    </div>
+                    <div class="space-y-0.5 text-[15px] font-item-ar">
+                        <div class="menu-row">
+                            <div class="item-label-wrap"><span>ايستي خوخ</span></div>
+                            <span class="dotted-line"></span>
+                            <div class="price-tag">4,000<span class="price-unit">IQD</span></div>
+                        </div>
+                        <div class="menu-row">
+                            <div class="item-label-wrap"><span>ايستي رمان</span></div>
+                            <span class="dotted-line"></span>
+                            <div class="price-tag">4,000<span class="price-unit">IQD</span></div>
+                        </div>
+                        <div class="menu-row">
+                            <div class="item-label-wrap"><span>ايستي بلاك</span></div>
+                            <span class="dotted-line"></span>
+                            <div class="price-tag">4,000<span class="price-unit">IQD</span></div>
+                        </div>
+                        <div class="menu-row">
+                            <div class="item-label-wrap"><span>ايستي كواتري</span></div>
+                            <span class="dotted-line"></span>
+                            <div class="price-tag">4,000<span class="price-unit">IQD</span></div>
+                        </div>
+                        <div class="menu-row">
+                            <div class="item-label-wrap"><span>ايستي باشن فروت</span></div>
+                            <span class="dotted-line"></span>
+                            <div class="price-tag">4,000<span class="price-unit">IQD</span></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ==================================================== -->
+                <!-- 7. موهيتو (Mojito)                                   -->
+                <!-- ==================================================== -->
+                <section aria-labelledby="cat-mojito">
+                    <div class="flex items-baseline justify-between mb-1.5">
+                        <h2 id="cat-mojito" class="font-cat-ar text-[18px] sm:text-[19px]">موهيتو</h2>
+                        <span class="font-en text-[11px] font-semibold uppercase tracking-wider text-[#6E6B64]" dir="ltr">Mojito</span>
+                    </div>
+                    <div class="space-y-0.5 text-[15px] font-item-ar">
+                        <div class="menu-row">
+                            <div class="item-label-wrap"><span>موهيتو ليمون نعناع</span></div>
+                            <span class="dotted-line"></span>
+                            <div class="price-tag">3,500<span class="price-unit">IQD</span></div>
+                        </div>
+                        <div class="menu-row">
+                            <div class="item-label-wrap"><span>موهيتو بلو</span></div>
+                            <span class="dotted-line"></span>
+                            <div class="price-tag">3,500<span class="price-unit">IQD</span></div>
+                        </div>
+                        <div class="menu-row">
+                            <div class="item-label-wrap"><span>موهيتو خوخ</span></div>
+                            <span class="dotted-line"></span>
+                            <div class="price-tag">3,500<span class="price-unit">IQD</span></div>
+                        </div>
+                        <div class="menu-row">
+                            <div class="item-label-wrap"><span>موهيتو فراولة</span></div>
+                            <span class="dotted-line"></span>
+                            <div class="price-tag">3,500<span class="price-unit">IQD</span></div>
+                        </div>
+                        <div class="menu-row">
+                            <div class="item-label-wrap"><span>موهيتو بلاك</span></div>
+                            <span class="dotted-line"></span>
+                            <div class="price-tag">3,500<span class="price-unit">IQD</span></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ==================================================== -->
+                <!-- 8. ميلك شيك (Milkshake)                              -->
+                <!-- ==================================================== -->
+                <section aria-labelledby="cat-milkshake">
+                    <div class="flex items-baseline justify-between mb-1.5">
+                        <h2 id="cat-milkshake" class="font-cat-ar text-[18px] sm:text-[19px]">ميلك شيك</h2>
+                        <span class="font-en text-[11px] font-semibold uppercase tracking-wider text-[#6E6B64]" dir="ltr">Milkshake</span>
+                    </div>
+                    <div class="space-y-0.5 text-[15px] font-item-ar">
+                        <div class="menu-row">
+                            <div class="item-label-wrap"><span>ميلك شيك بستاشيو</span></div>
+                            <span class="dotted-line"></span>
+                            <div class="price-tag">4,000<span class="price-unit">IQD</span></div>
+                        </div>
+                        <div class="menu-row">
+                            <div class="item-label-wrap"><span>ميلك شيك نوتيلا</span></div>
+                            <span class="dotted-line"></span>
+                            <div class="price-tag">4,000<span class="price-unit">IQD</span></div>
+                        </div>
+                        <div class="menu-row">
+                            <div class="item-label-wrap"><span>ميلك شيك أوريو</span></div>
+                            <span class="dotted-line"></span>
+                            <div class="price-tag">4,000<span class="price-unit">IQD</span></div>
+                        </div>
+                        <div class="menu-row">
+                            <div class="item-label-wrap"><span>ميلك شيك لوتس</span></div>
+                            <span class="dotted-line"></span>
+                            <div class="price-tag">4,000<span class="price-unit">IQD</span></div>
+                        </div>
+                        <div class="menu-row">
+                            <div class="item-label-wrap"><span>ميلك شيك كندر</span></div>
+                            <span class="dotted-line"></span>
+                            <div class="price-tag">4,000<span class="price-unit">IQD</span></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ==================================================== -->
+                <!-- 9. السموذي (Smoothies)                               -->
+                <!-- ==================================================== -->
+                <section aria-labelledby="cat-smoothies">
+                    <div class="flex items-baseline justify-between mb-1.5">
+                        <h2 id="cat-smoothies" class="font-cat-ar text-[18px] sm:text-[19px]">السموذي</h2>
+                        <span class="font-en text-[11px] font-semibold uppercase tracking-wider text-[#6E6B64]" dir="ltr">Smoothies</span>
+                    </div>
+                    <div class="space-y-0.5 text-[15px] font-item-ar">
+                        <div class="menu-row">
+                            <div class="item-label-wrap"><span>سموذي بلوبيري</span></div>
+                            <span class="dotted-line"></span>
+                            <div class="price-tag">3,500<span class="price-unit">IQD</span></div>
+                        </div>
+                        <div class="menu-row">
+                            <div class="item-label-wrap"><span>سموذي فراولة</span></div>
+                            <span class="dotted-line"></span>
+                            <div class="price-tag">3,500<span class="price-unit">IQD</span></div>
+                        </div>
+                        <div class="menu-row">
+                            <div class="item-label-wrap"><span>سموذي خوخ</span></div>
+                            <span class="dotted-line"></span>
+                            <div class="price-tag">3,500<span class="price-unit">IQD</span></div>
+                        </div>
+                        <div class="menu-row">
+                            <div class="item-label-wrap"><span>سموذي باش فروت</span></div>
+                            <span class="dotted-line"></span>
+                            <div class="price-tag">3,500<span class="price-unit">IQD</span></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ==================================================== -->
+                <!-- 10. مشروبات فريش (Fresh Juices)                      -->
+                <!-- ==================================================== -->
+                <section aria-labelledby="cat-fresh-juices">
+                    <div class="flex items-baseline justify-between mb-1.5">
+                        <h2 id="cat-fresh-juices" class="font-cat-ar text-[18px] sm:text-[19px]">مشروبات فريش</h2>
+                        <span class="font-en text-[11px] font-semibold uppercase tracking-wider text-[#6E6B64]" dir="ltr">Fresh Juices</span>
+                    </div>
+                    <div class="space-y-0.5 text-[15px] font-item-ar">
+                        <div class="menu-row">
+                            <div class="item-label-wrap"><span>برتقال</span></div>
+                            <span class="dotted-line"></span>
+                            <div class="price-tag">3,000<span class="price-unit">IQD</span></div>
+                        </div>
+                        <div class="menu-row">
+                            <div class="item-label-wrap"><span>ليمون</span></div>
+                            <span class="dotted-line"></span>
+                            <div class="price-tag">3,000<span class="price-unit">IQD</span></div>
+                        </div>
+                        <div class="menu-row">
+                            <div class="item-label-wrap"><span>برتقال وليمون</span></div>
+                            <span class="dotted-line"></span>
+                            <div class="price-tag">3,000<span class="price-unit">IQD</span></div>
+                        </div>
+                        <div class="menu-row">
+                            <div class="item-label-wrap"><span>موز وحليب</span></div>
+                            <span class="dotted-line"></span>
+                            <div class="price-tag">3,000<span class="price-unit">IQD</span></div>
+                        </div>
+                        <div class="menu-row">
+                            <div class="item-label-wrap"><span>فراولة</span></div>
+                            <span class="dotted-line"></span>
+                            <div class="price-tag">3,000<span class="price-unit">IQD</span></div>
+                        </div>
+                        <div class="menu-row">
+                            <div class="item-label-wrap"><span>موز وشوكولا</span></div>
+                            <span class="dotted-line"></span>
+                            <div class="price-tag">3,000<span class="price-unit">IQD</span></div>
+                        </div>
+                        <div class="menu-row">
+                            <div class="item-label-wrap"><span>ليمون نعناع</span></div>
+                            <span class="dotted-line"></span>
+                            <div class="price-tag">3,000<span class="price-unit">IQD</span></div>
+                        </div>
+                        <div class="menu-row">
+                            <div class="item-label-wrap">
+                                <span class="font-bold">كوكتيل فواكه</span>
+                                <span class="badge-choice">★ اختيارنا</span>
+                            </div>
+                            <span class="dotted-line"></span>
+                            <div class="price-tag">3,000<span class="price-unit">IQD</span></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ==================================================== -->
+                <!-- 11. الوافل (Waffles)                                 -->
+                <!-- ==================================================== -->
+                <section aria-labelledby="cat-waffles">
+                    <div class="flex items-baseline justify-between mb-1.5">
+                        <h2 id="cat-waffles" class="font-cat-ar text-[18px] sm:text-[19px]">الوافل</h2>
+                        <span class="font-en text-[11px] font-semibold uppercase tracking-wider text-[#6E6B64]" dir="ltr">Waffles</span>
+                    </div>
+                    <div class="space-y-0.5 text-[15px] font-item-ar">
+                        <div class="menu-row">
+                            <div class="item-label-wrap">
+                                <span class="font-bold">وافل نوتيلا</span>
+                                <span class="badge-choice">★ اختيارنا</span>
+                            </div>
+                            <span class="dotted-line"></span>
+                            <div class="price-tag">5,000<span class="price-unit">IQD</span></div>
+                        </div>
+                        <div class="menu-row">
+                            <div class="item-label-wrap"><span>وافل بستاشيو</span></div>
+                            <span class="dotted-line"></span>
+                            <div class="price-tag">5,000<span class="price-unit">IQD</span></div>
+                        </div>
+                        <div class="menu-row">
+                            <div class="item-label-wrap"><span>وافل كندر</span></div>
+                            <span class="dotted-line"></span>
+                            <div class="price-tag">5,000<span class="price-unit">IQD</span></div>
+                        </div>
+                        <div class="menu-row">
+                            <div class="item-label-wrap"><span>وافل فواكه</span></div>
+                            <span class="dotted-line"></span>
+                            <div class="price-tag">5,000<span class="price-unit">IQD</span></div>
+                        </div>
+                        <div class="menu-row">
+                            <div class="item-label-wrap"><span>وافل مكس</span></div>
+                            <span class="dotted-line"></span>
+                            <div class="price-tag">5,000<span class="price-unit">IQD</span></div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+
+            <!-- Subtle Card Footer -->
+            <footer class="mt-8 pt-3.5 border-t border-[#D6D2C9] text-center">
+                <p class="text-[13.5px] font-bold text-[#4A4A46] flex items-center justify-center gap-1.5">
+                    <span class="font-en font-bold tracking-wide text-[#1E1E1E]" dir="ltr">Nero Caffe</span>
+                    <span aria-hidden="true">☕</span>
+                    <span>تابعنا لتصلك العروض</span>
+                </p>
+            </footer>
+
+        </main>
+    </div>
+
+</body>
+</html>
